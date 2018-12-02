@@ -7,22 +7,17 @@ module Exercise2
 where
 
 import           Data.Map.Strict                ( Map )
-import           Data.Monoid                    ( Sum(..) )
 import qualified Data.Map.Strict               as M
-import           Data.Foldable                  ( foldl'
-                                                , foldMap
-                                                )
 import           Data.List                      ( find )
 
 fkedEq :: Eq a => [a] -> [a] -> Bool
 fkedEq l r = fkedEq' l r False
  where
-  fkedEq' (x : _) []      f = False
-  fkedEq' []      (y : _) f = False
-  fkedEq' []      []      f = f
+  fkedEq' [] [] f = f
   fkedEq' (x : xs) (y : ys) f | f && x /= y       = False
                               | (not f) && x /= y = fkedEq' xs ys True
                               | x == y            = fkedEq' xs ys f
+  fkedEq' _ _ _ = False
 
 freqMap :: Ord a => [a] -> Map a Int
 freqMap s = M.fromListWith (+) [ (x, 1) | x <- s ]

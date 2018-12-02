@@ -7,16 +7,13 @@ module Exercise1
 where
 
 import           Text.Read                      ( readMaybe )
-import           Data.Set                       ( Set )
 import qualified Data.Set                      as Set
-import           Debug.Trace                    ( trace )
 
 freqList :: FilePath -> IO [Int]
 freqList f = do
   l <- lines <$> readFile f
   let m = traverse (readMaybe . filter (/= '+')) l
   maybe (fail $ "Error parsing numerics frequencies in file: " <> f) pure m
-
 
 printFreq :: FilePath -> IO ()
 printFreq f = do
