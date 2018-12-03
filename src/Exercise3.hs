@@ -69,8 +69,10 @@ claimIxList :: Claim -> [RCIx]
 claimIxList c =
   let xOff = cXOff c
       yOff = cYOff c
-      x    = [ RCIx x | x <- [xOff .. (xOff + (cWidth c - 1))] ]
-  in  (\f -> [ f y | y <- [yOff .. yOff + (cHeight c - 1)] ]) =<< x
+  in  [ RCIx x y
+      | x <- [xOff .. (xOff + (cWidth c - 1))]
+      , y <- [yOff .. yOff + (cHeight c - 1)]
+      ]
 
 -- Ensure the indices that the claim covers
 -- are all equal to 1, indicating no overlap. If not,
@@ -78,7 +80,6 @@ claimIxList c =
 noOverlap :: Map RCIx Int -> Claim -> Bool
 noOverlap m c = and $ (noOverlap' m <$> claimIxList c)
   where noOverlap' m rix = maybe False (== 1) (Map.lookup rix m)
-
 
 runAllClaims :: FilePath -> IO ()
 runAllClaims fp = do
@@ -89,4 +90,5 @@ runAllClaims fp = do
       overlapping    = length (filter (>= 2) (Map.elems cAreaMap))
       notOverlapping = head $ filter (noOverlap cAreaMap) claims
   putStrLn $ "The # of overlapping blah is " <> show overlapping
-  putStrLn $ "The id of the non overlapping one is " <> show (cId notOverlapping)
+  putStrLn $ "The id of the non overlapping one is " <> show
+    (cId notOverlapping)
