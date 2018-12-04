@@ -18,10 +18,11 @@ extra-source-files:  CHANGELOG.md
 executable aoc
   main-is:             Main.hs
   other-modules:       Exercise1, Exercise2,
-                       Exercise3
+                       Exercise3, Exercise4
   -- other-extensions:
   build-depends:       base ^>=4.11.1.0, containers,
-                       megaparsec
+                       megaparsec, time, mtl, unix-time,
+                       bytestring, text
   hs-source-dirs:      src
   default-language:    Haskell2010
   ghc-options:         -Wall -fno-warn-unused-do-bind -fno-warn-name-shadowing
