@@ -2,7 +2,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 
 module Exercise2
-  ( runCount
+  ( runExercise2
   )
 where
 
@@ -29,8 +29,8 @@ checkSum li = twos * threes
   threes = countN 3
   countN n = length $ filter (elem n) (freqMap <$> li)
 
-runCount :: FilePath -> IO ()
-runCount f = do
+runExercise2 :: FilePath -> IO ()
+runExercise2 f = do
   l <- lines <$> readFile f
   let cs             = checkSum l
       (lword, rword) = matchingTwo l

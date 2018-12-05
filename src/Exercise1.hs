@@ -1,8 +1,7 @@
 {-# LANGUAGE BangPatterns #-}
 
 module Exercise1
-  ( printFreq
-  , freqList
+  ( runExercise1
   )
 where
 
@@ -15,8 +14,8 @@ freqList f = do
   let m = traverse (readMaybe . filter (/= '+')) l
   maybe (fail $ "Error parsing numerics frequencies in file: " <> f) pure m
 
-printFreq :: FilePath -> IO ()
-printFreq f = do
+runExercise1 :: FilePath -> IO ()
+runExercise1 f = do
   mb <- freqList f
   initialMsg (sum mb)
   repeatedMsg (repeatedFreq mb)

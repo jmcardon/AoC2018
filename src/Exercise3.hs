@@ -1,4 +1,7 @@
-module Exercise3 where
+module Exercise3
+  ( runExercise3
+  )
+where
 
 import           Data.Map.Strict                ( Map )
 import qualified Data.Map.Strict               as Map
@@ -81,8 +84,8 @@ noOverlap :: Map RCIx Int -> Claim -> Bool
 noOverlap m c = and $ (noOverlap' m <$> claimIxList c)
   where noOverlap' m rix = maybe False (== 1) (Map.lookup rix m)
 
-runAllClaims :: FilePath -> IO ()
-runAllClaims fp = do
+runExercise3 :: FilePath -> IO ()
+runExercise3 fp = do
   l <- lines <$> readFile fp
   let x              = traverse (parseMaybe parseClaim) l
       claims         = maybe (error "error parsing") id x
