@@ -2,13 +2,13 @@ module Exercise5 where
 
 import           Data.Char                      ( toUpper
                                                 , toLower
+                                                , isUpper
+                                                , isSpace
                                                 )
-import qualified Data.Text                     as T
 import           Data.List                      ( sortOn )
--- import           Data.Function                  ( fix )
 
-
-
+-- naiive brute force soln
+-- does not eliminate all the input at once, requires multiple passes
 eliminate :: String -> String
 eliminate = fixedPt eliminate'
  where
@@ -21,12 +21,24 @@ eliminate = fixedPt eliminate'
   eliminate' s = s
   doesCancel a b = (a == toLower b || a == toUpper b) && a /= b
 
+-- Courtesy of big boi HVR 
+-- inspired by zippers, function name
+-- sponsored by Fpco
+eliminateHVR :: String -> String
+eliminateHVR = eliminate' []
+ where
+  eliminate' done []       = reverse done
+  eliminate' []   (x : xs) = eliminate' [x] xs
+  eliminate' (x : xs) (y : ys) | canElim x y = eliminate' xs ys
+                               | otherwise   = eliminate' (y : x : xs) ys
+  canElim a b = (a == toLower b || a == toUpper b) && a /= b
+
 runExercise5 :: FilePath -> IO ()
 runExercise5 fp = do
-  l <- T.unpack . T.strip . T.pack <$> readFile fp
-  let elim1 = eliminate l
+  l <- filter (not . isSpace) <$> readFile fp
+  let elim1 = eliminateHVR l
       elim2 =
-        head $ sortOn length $ (eliminate . flip remove l) <$> ['a' .. 'z']
+        head $ sortOn length $ (eliminateHVR . flip remove l) <$> ['a' .. 'z']
   putStrLn $ "Eliminated initial expression length: " <> (show . length) elim1
   putStrLn
     $  "Eliminated expression without 1 polymer min length: "
