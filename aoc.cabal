@@ -20,7 +20,7 @@ executable aoc
   other-modules:       AOCTH,
                        Exercise1, Exercise2,
                        Exercise3, Exercise4,
-                       Exercise5
+                       Exercise5, Exercise6
   -- other-extensions:
   build-depends:       base ^>=4.11.1.0, containers,
                        megaparsec, mtl, text, optparse-applicative, 
