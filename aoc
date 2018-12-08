@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-cabal -v0 new-run aoc -O2 -- "$@"
+cabal -v0 new-run aoc -- "$@"

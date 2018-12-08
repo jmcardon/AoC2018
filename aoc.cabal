@@ -20,11 +20,12 @@ executable aoc
   other-modules:       AOCTH,
                        Exercise1, Exercise2,
                        Exercise3, Exercise4,
-                       Exercise5, Exercise6
+                       Exercise5, Exercise6,
+                       Exercise7, Exercise8
   -- other-extensions:
   build-depends:       base ^>=4.11.1.0, containers,
                        megaparsec, mtl, text, optparse-applicative, 
-                       template-haskell
+                       template-haskell, vector
   hs-source-dirs:      src
   default-language:    Haskell2010
   ghc-options:         -Wall -fno-warn-unused-do-bind -fno-warn-name-shadowing

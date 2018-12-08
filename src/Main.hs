@@ -10,6 +10,8 @@ import           Exercise3                      ( runExercise3 )
 import           Exercise4                      ( runExercise4 )
 import           Exercise5                      ( runExercise5 )
 import           Exercise6                      ( runExercise6 )
+import           Exercise7                      ( runExercise7 )
+import           Exercise8                      ( runExercise8 )
 import           Options.Applicative            ( Parser
                                                 , option
                                                 , auto
@@ -51,7 +53,7 @@ main = do
   let s = exercises
   runOption s =<< execParser parseOptions
  where
-  exercises = $(allExercises 6)
+  exercises = $(allExercises 8)
   invalidRange i = "Invalid exercise range! must be within 1 and " <> show i
   problemInput i = "input_problem" <> show i <> ".txt"
   validRange s i = i > 0 && i <= length s

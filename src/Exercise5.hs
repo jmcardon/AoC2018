@@ -2,7 +2,6 @@ module Exercise5 where
 
 import           Data.Char                      ( toUpper
                                                 , toLower
-                                                , isUpper
                                                 , isSpace
                                                 )
 import           Data.List                      ( sortOn )
