@@ -1,4 +1,5 @@
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE DeriveFoldable #-}
 
 module Exercise8
   ( runExercise8
@@ -19,7 +20,7 @@ import           Data.Vector                    ( Vector
                                                 )
 import qualified Data.Vector                   as V
 
-data MultiTree a = Node (Vector (MultiTree a)) [a] | Leaf [a] deriving (Eq, Show)
+data MultiTree a = Node (Vector (MultiTree a)) [a] | Leaf [a] deriving (Eq, Show, Foldable)
 
 runExercise8 :: FilePath -> IO ()
 runExercise8 fp = do
@@ -51,5 +52,6 @@ parseMultiTree = do
     | otherwise = Node . V.fromList <$> replicateM n parseMultiTree
 
 sumMdata :: Num a => MultiTree a -> a
-sumMdata (Leaf a       ) = sum a
-sumMdata (Node mtree li) = foldl' (\s t -> s + sumMdata t) (sum li) mtree
+sumMdata = sum
+-- sumMdata (Leaf a       ) = sum a
+-- sumMdata (Node mtree li) = foldl' (\s t -> s + sumMdata t) (sum li) mtree
